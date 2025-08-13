@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            padding-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            font-size: 20px;
+            color: green;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Your Date of Birth</h1>
+    <input type="date" id="dob">
+    <br><br>
+    <button id="calcBtn">Calculate Age</button>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById("calcBtn").addEventListener("click", function() {
+            let dob = document.getElementById("dob").value;
+            let result = document.getElementById("result");
+
+            if (!dob) {
+                result.style.color = "red";
+                result.innerText = "Please enter your date of birth!";
+                return;
+            }
+
+            let birthDate = new Date(dob);
+            let today = new Date();
+
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                let prevMonthDays = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+                days += prevMonthDays;
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            result.style.color = "green";
+            result.innerText = `You are ,${years} years, ${months} months, and ${days} days old.`;
+        });
+    </script>
+</body>
+</html>
